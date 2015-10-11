@@ -1,0 +1,11 @@
+<h2 class="text-center">Configuration</h2>
+<div ng-controller="ConfigCtrl as conf">
+    <div>Current endpoint: {{ conf.ce }}</div>
+    <form class="redis-form" novalidate name="configForm" ng-submit="conf.setConfig(formModel)">
+    <div class="form-group">
+        <label class="sr-only" for="apiendpoint">API Endpoint</label>
+        <input ng-model="formModel.endpoint" name="apiendpoint" class=" form-control" title="API Endpoint" placeholder="http://localhost:5000/" required></input>
+    </div> 
+        <a href class="btn btn-default pull-right" ng-click="conf.setConfig(formModel)">Save</a>
+    </form>
+</div>
