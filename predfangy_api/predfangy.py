@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask.ext.cors import CORS
 import redis
+import random
 import time
 import json
 
@@ -58,6 +59,16 @@ def rlist():
     keys = {}
     keys["keys"] = [x.decode('utf8') for x in r.keys()]
     return jsonify(**keys)
+
+
+@app.route('/rjunk', methods=['GET'])
+def rjunk():
+    i = 0
+    while i <= 100:
+        i += 1
+        rk = random.random()
+        r.set(rk, random.random())
+    return jsonify({"status": "success"})
 
 
 if __name__ == '__main__':

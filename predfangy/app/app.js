@@ -1,11 +1,22 @@
 (function() {
-    /**
-     * Definition of the main app module and its dependencies
-     */
+
     var app = angular.module('predfangy', []);
     app.redisApi = 'http://localhost:5000/';
-
+    app.keyCount = {};
     function run($rootScope, $location, $http, $scope) {}
+
+    app.controller('DocsCtrl', function($scope, $http){
+       console.log("write the docs, idiot.");
+       this.addJunkData = function(){
+            $http.get(app.redisApi + 'rjunk').
+            success(function(data, status, headers, config) {
+                console.log("Junk data added successfully!");
+            }).
+            error(function(data, status, headers, config) {
+                console.log("Unable to add junk data. Check your connectiostring on the config tab!");
+            });
+       };
+    });
     app.controller("AddNewKVCtrl", function() {
         this.show = false;
         this.toggleForm = function() {
@@ -55,13 +66,13 @@
         $scope.searchText = "";
         $scope.showSearchResults = false;
 
-        this.editValueIconClick = function(key){
+        this.editValueIconClick = function(key) {
             this.getKeyVal(key);
             $scope.showKVFormFor[key] = !$scope.showKVFormFor[key];
             return $scope.showKVFormFor[key];
         };
 
-        this.flushAllKeys = function(){
+        this.flushAllKeys = function() {
             $http.get(app.redisApi + 'rflush').
             success(function(data, status, headers, config) {
                 $scope.getAllKeys();
@@ -72,7 +83,7 @@
             });
         };
 
-        this.deleteKVPair = function(key){
+        this.deleteKVPair = function(key) {
             $http({
                 url: app.redisApi + "rdel",
                 method: "POST",
@@ -98,25 +109,26 @@
             $scope.searchResults = [];
             $scope.keysList.forEach(function(k) {
                 var n = k.search(searchText);
-                if (n >= 0){
+                if (n >= 0) {
                     $scope.searchResults[k] = true;
                 }
             });
-            if (Object.keys($scope.searchResults).length > 0){
-                    $scope.showSearchResults = true;
-                }
-            else{
+            if (Object.keys($scope.searchResults).length > 0) {
+                $scope.showSearchResults = true;
+            } else {
                 $scope.showSearchResults = false;
             }
-            if (searchText === ""){
+            if (searchText === "") {
                 $scope.searchResults = [];
                 $scope.showSearchResults = false;
             }
         };
-        
+
         this.refreshAllKeys = function() {
             $scope.keysList = {};
             $scope.searchResults = [];
+            $scope.getAllKeys();
+
         };
         this.toggleKVForm = function(key) {
             $scope.showKVFormFor[key] = !$scope.showKVFormFor[key];
@@ -190,6 +202,7 @@
         };
         //initial grab of keys
         $scope.getAllKeys();
+        //$scope.keyCount = $scope.keyList.length;
         //this.filterForKeys("test search");
     });
     // begin connection modal
