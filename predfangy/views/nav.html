@@ -2,13 +2,16 @@
 <section>
 <div class="ctrls-span">
   <ul class="nav nav-pills">
-    <li ng-class="{ active:tab.isSet(1) } btn btn-primary">
+    <li ng-class="{ active:tab.isSet(1) }">
       <a href class="btn btn-primary" ng-click="nav.setTab(1)">Configuration</a>
     </li>
-    <li ng-class="{ active:tab.isSet(2) } btn btn-primary">
+    <li ng-class="{ active:tab.isSet(2) }">
       <a href class="btn btn-primary" ng-click="nav.setTab(2)">Key Browser</a>
     </li>
-    <li ng-class="{ active:tab.isSet(3) } btn btn-primary">
+    <li ng-class="{ active:tab.isSet(4) }">
+      <a href class="btn btn-primary" ng-click="nav.setTab(4)">Console</a>
+    </li>
+    <li ng-class="{ active:tab.isSet(3) }">
       <a href class="btn btn-primary" ng-click="nav.setTab(3)">Documentation</a>
     </li>
   </ul>
@@ -18,8 +21,11 @@
   </div>
 
   <!--  Confg form  -->
-  <div docs ng-show="nav.isSet(1)" ng-include="'views/config.html'">
+  <div config ng-show="nav.isSet(1)" ng-include="'views/config.html'">
   </div>
+
+  <!-- redis command console -->
+  <div ng-show="nav.isSet(4)" ng-include="'views/console.html'"></div>
 
   <!--  Docs -->
   <docs ng-show="nav.isSet(3)" ng-include="'views/docs.html'"></docs>

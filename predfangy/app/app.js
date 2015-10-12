@@ -22,7 +22,6 @@
         this.show = false;
         this.toggleForm = function() {
             this.show = !this.show;
-            console.log(this.show);
             return this.show;
         };
     });
@@ -33,7 +32,6 @@
         this.setConfig = function(model) {
             app.redisApi = model.endpoint;
             this.ce = app.redisApi;
-            console.log(this.formModel);
         };
     });
     app.directive("navTabs", function() {
@@ -47,7 +45,6 @@
                 };
                 this.setTab = function(activeTab) {
                     this.tab = activeTab;
-                    console.log(this.tab);
                 };
             },
             controllerAs: "nav"
@@ -66,9 +63,39 @@
         $scope.searchResults = {};
         $scope.searchText = "";
         $scope.showSearchResults = false;
+        $scope.showExpFormFor = {}
+
+        this.showExpForm = function(key){
+            console.log(key);
+            $scope.showExpFormFor[key] = !$scope.showExpFormFor[key];
+            return $scope.showExpFormFor[key];
+        };
+
+        this.setExpSecs = function(key, secs){
+            console.log(key + ' ' + secs)
+            
+            $scope.cachedKeyVals[key].timeStamp = Date.now;
+            $http({
+                url: app.redisApi + "rexpsecs",
+                method: "POST",
+                data: {
+                    'key': key,
+                    'exp': secs
+                }
+            })
+                .then(function(response) {
+                    $scope.showExpFormFor[key] = false;
+                    $scope.cachedKeyVals[key].expireAfter = true;
+                    $scope.cachedKeyVals[key].expireAt = false;
+                    $scope.cachedKeyVals[key].counter = secs;
+                        console.log(key + ' expires in ' + secs + ' seconds');
+                    },
+                    function(response) { // optional
+                        console.log('FAILURE - expiration not set for: ' + key + ' : ' + secs)
+                    });
+        };
 
         this.editValueIconClick = function(key) {
-
             this.getKeyVal(key);
             $scope.showKVFormFor[key] = !$scope.showKVFormFor[key];
             return $scope.showKVFormFor[key];
@@ -153,7 +180,7 @@
             })
                 .then(function(response) {
                         console.log(key + ' now references ' + val);
-                        $scope.cachedKeyVals[key] = val;
+                        $scope.cachedKeyVals[key].value = val;
                     },
                     function(response) { // optional
                         console.log('FAILURE - KV PAIR NOT SET: ' + key + ' : ' + val)
@@ -176,7 +203,8 @@
             if ($scope.cachedKeyVals[key] === undefined) {
                 $http.get(app.redisApi + "rget?key=" + key).
                 success(function(data, status, headers, config) {
-                    $scope.cachedKeyVals[key] = data[key];
+                    $scope.cachedKeyVals[key] = {};
+                    $scope.cachedKeyVals[key].value = data[key];
                     //$scope.showKVFormFor[key] = false;
                 }).
                 error(function(data, status, headers, config) {
@@ -188,7 +216,7 @@
         this.getKeyValClick = function(key) {
             $http.get(app.redisApi + "rget?key=" + key).
             success(function(data, status, headers, config) {
-                $scope.cachedKeyVals[key] = data[key];
+                $scope.cachedKeyVals[key].value = data[key];
                 //$scope.showKVFormFor[key] = false;
             }).
             error(function(data, status, headers, config) {

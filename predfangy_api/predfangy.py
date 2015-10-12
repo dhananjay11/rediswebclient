@@ -72,6 +72,16 @@ def rjunk():
     return jsonify({"status": "success"})
 
 
+@app.route('/rexpsecs', methods=['POST'])
+def rjunk():
+    fd = request.json
+    k = fd['key']
+    e = fd['exp']
+    r.expire(k, int(e))
+    return jsonify({"status": "success"})
+
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run()
