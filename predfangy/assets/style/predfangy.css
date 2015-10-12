@@ -3,13 +3,13 @@
 
 h1, table { text-align: center; }
 
-table {border-collapse: collapse;  width: 85%; margin: 0 auto 5rem;}
+table {border-collapse: collapse;  width: 90%; margin: 0 auto 5rem;}
 
 th, td { padding: 1.5rem; font-size: 1.3rem; }
 
 tr {background: hsl(80, 50%, 80%); }
 
-tr, td { transition: .2s ease-in; } 
+tr, td { transition: .1s ease-in; } 
 
 tr:first-child {background: hsla(50, 100%, 40%, 0.5); }
 
@@ -18,11 +18,11 @@ tr:nth-child(even) { background: hsla(60, 50%, 80%, 0.7); }
 td:empty {background: hsla(70, 25%, 60%, 0.7); }
 
 tr:hover:not(#firstrow), tr:hover td:empty {background: silver; pointer-events: visible;}
-tr:hover:not(#firstrow) { transform: scale(1.2); font-weight: 700; box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.5);}
+tr:hover:not(#firstrow) { transform: scale(1.1); font-weight: 700; box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.5);}
 
 div .totalkeys {
   text-align: center;
-  
+
 }
 
 div .ctrls-span {

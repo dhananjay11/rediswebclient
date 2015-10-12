@@ -1,13 +1,14 @@
 (function() {
 
     var app = angular.module('predfangy', []);
-    app.redisApi = 'http://localhost:5000/';
-    app.keyCount = {};
+    app.redisApi = 'http://192.168.1.117:5000/';
+    app.keyCount = 0;
+
     function run($rootScope, $location, $http, $scope) {}
 
-    app.controller('DocsCtrl', function($scope, $http){
-       console.log("write the docs, idiot.");
-       this.addJunkData = function(){
+    app.controller('DocsCtrl', function($scope, $http) {
+        console.log("write the docs, idiot.");
+        this.addJunkData = function() {
             $http.get(app.redisApi + 'rjunk').
             success(function(data, status, headers, config) {
                 console.log("Junk data added successfully!");
@@ -15,7 +16,7 @@
             error(function(data, status, headers, config) {
                 console.log("Unable to add junk data. Check your connectiostring on the config tab!");
             });
-       };
+        };
     });
     app.controller("AddNewKVCtrl", function() {
         this.show = false;
@@ -26,7 +27,7 @@
         };
     });
     app.controller('ConfigCtrl', function($scope, $rootScope) {
-        app.redisApi = 'http://localhost:5000/';
+        app.redisApi = 'http://192.168.1.117:5000/';
         this.ce = app.redisApi;
         $scope.formModel = {};
         this.setConfig = function(model) {
@@ -67,9 +68,11 @@
         $scope.showSearchResults = false;
 
         this.editValueIconClick = function(key) {
+
             this.getKeyVal(key);
             $scope.showKVFormFor[key] = !$scope.showKVFormFor[key];
             return $scope.showKVFormFor[key];
+
         };
 
         this.flushAllKeys = function() {
@@ -170,6 +173,19 @@
             });
         };
         this.getKeyVal = function(key) {
+            if ($scope.cachedKeyVals[key] === undefined) {
+                $http.get(app.redisApi + "rget?key=" + key).
+                success(function(data, status, headers, config) {
+                    $scope.cachedKeyVals[key] = data[key];
+                    //$scope.showKVFormFor[key] = false;
+                }).
+                error(function(data, status, headers, config) {
+                    console.log('Error getting key value for: ' + key)
+                });
+            }
+        };
+
+        this.getKeyValClick = function(key) {
             $http.get(app.redisApi + "rget?key=" + key).
             success(function(data, status, headers, config) {
                 $scope.cachedKeyVals[key] = data[key];
@@ -178,7 +194,9 @@
             error(function(data, status, headers, config) {
                 console.log('Error getting key value for: ' + key)
             });
+
         };
+
         this.updateExistingKey = function(key, val) {
             if (typeof key !== 'undefined' && typeof val !== 'undefined') {
                 this.ev = {};

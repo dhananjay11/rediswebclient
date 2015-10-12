@@ -1,13 +1,15 @@
+
 <section>
+<div class="ctrls-span">
   <ul class="nav nav-pills">
-    <li ng-class="{ active:tab.isSet(1) }">
-      <a href ng-click="nav.setTab(1)">Configuration</a>
+    <li ng-class="{ active:tab.isSet(1) } btn btn-primary">
+      <a href class="btn btn-primary" ng-click="nav.setTab(1)">Configuration</a>
     </li>
-    <li ng-class="{ active:tab.isSet(2) }">
-      <a href ng-click="nav.setTab(2)">Key Browser</a>
+    <li ng-class="{ active:tab.isSet(2) } btn btn-primary">
+      <a href class="btn btn-primary" ng-click="nav.setTab(2)">Key Browser</a>
     </li>
-    <li ng-class="{ active:tab.isSet(3) }">
-      <a href ng-click="nav.setTab(3)">Documentation</a>
+    <li ng-class="{ active:tab.isSet(3) } btn btn-primary">
+      <a href class="btn btn-primary" ng-click="nav.setTab(3)">Documentation</a>
     </li>
   </ul>
 
@@ -21,5 +23,5 @@
 
   <!--  Docs -->
   <docs ng-show="nav.isSet(3)" ng-include="'views/docs.html'"></docs>
-
+</div>
 </section>

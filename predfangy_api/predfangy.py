@@ -68,6 +68,7 @@ def rjunk():
         i += 1
         rk = random.random()
         r.set(rk, random.random())
+        r.expire(rk, 300)
     return jsonify({"status": "success"})
 
 

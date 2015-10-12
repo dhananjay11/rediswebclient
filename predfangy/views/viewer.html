@@ -5,7 +5,6 @@
             <a class="btn btn-info buttonbuffer" ng-click="redis.refreshAllKeys()">Refresh</a>
             <a href class="btn btn-success buttonbuffer" ng-click="addnewform.toggleForm()">Toggle Add New Form</a>
             <a class="btn btn-danger buttonbuffer" ng-click="redis.flushAllKeys()">Flush All</a>
-            
         </div>
         <div class="totalkeys">
             Total keys: {{ redis.keyCount }}
@@ -38,7 +37,7 @@
             <th>Controls</th>
         </tr>
         <tr ng-repeat="key in keysList | orderBy: key" ng-show="!showSearchResults || (showSearchResults && searchResults[key])">
-            <td data-th="Key">
+            <td data-th="Key" scroll-trigger="redis.getKeyVal(key)">
                 <span ng-click="redis.getKeyVal(key)">{{ key }}<span>
                 </td>
                 <td data-th="Value" ng-mouseover="redis.getKeyVal(key)">
@@ -48,8 +47,15 @@
                     </form>
                 </td>
                 <td data-th="Controls">
+
+                    <kval ng-click="redis.getKeyValClick(key)">
+                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                    </kval>
                     <kval ng-click="redis.editValueIconClick(key)">
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </kval>
+                    <kval ng-click="redis.setTTLShow(key)">
+                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                     </kval>
                     <kval ng-click="redis.deleteKVPair(key)">
                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
