@@ -61,6 +61,39 @@
             return $scope.showKVFormFor[key];
         };
 
+        this.flushAllKeys = function(){
+            $http.get(app.redisApi + 'rflush').
+            success(function(data, status, headers, config) {
+                $scope.getAllKeys();
+                console.log("All Redis keys have been flushed!");
+            }).
+            error(function(data, status, headers, config) {
+                console.log("Unable to flush Redis keys.");
+            });
+        };
+
+        this.deleteKVPair = function(key){
+            $http({
+                url: app.redisApi + "rdel",
+                method: "POST",
+                data: {
+                    'key': key,
+                }
+            })
+                .then(function(response) {
+                        var index = $scope.keysList.indexOf(key);
+                        delete $scope.cachedKeyVals[key];
+                        if (index > -1) {
+                            $scope.keysList.splice(index, 1);
+                        }
+                        delete $scope.keysList[key];
+                        console.log(key + 'has been deleted.');
+                    },
+                    function(response) {
+                        console.log('FAILURE - Key not deleted.')
+                    });
+        };
+
         this.filterForKeys = function(searchText) {
             $scope.searchResults = [];
             $scope.keysList.forEach(function(k) {
@@ -84,7 +117,6 @@
         this.refreshAllKeys = function() {
             $scope.keysList = {};
             $scope.searchResults = [];
-            this.getAllKeys();
         };
         this.toggleKVForm = function(key) {
             $scope.showKVFormFor[key] = !$scope.showKVFormFor[key];
@@ -112,7 +144,7 @@
                         console.log('FAILURE - KV PAIR NOT SET: ' + key + ' : ' + val)
                     });
         };
-        this.getAllKeys = function() {
+        $scope.getAllKeys = function() {
             $http.get(app.redisApi + 'rlist').
             success(function(data, status, headers, config) {
                 $scope.keysList = data.keys;
@@ -157,7 +189,7 @@
             model = {};
         };
         //initial grab of keys
-        this.getAllKeys();
+        $scope.getAllKeys();
         //this.filterForKeys("test search");
     });
     // begin connection modal

@@ -29,19 +29,27 @@ def rget():
 @app.route('/rset', methods=['POST'])
 def rset():
     fd = request.json
-    print(fd)
-
     k = fd['key']
     v = fd['val']
-    print(k, v)
-
     status = False
-
     if k not in ('', None) and v not in ('', None):
         status = r.set(k, v)
-
     result = {'status': status}
     print(status)
+    return jsonify(result)
+
+
+@app.route('/rdel', methods=['POST'])
+def rdel():
+    status = r.delete(request.json['key'])
+    result = {"status": status}
+    return jsonify(result)
+
+
+@app.route('/rflush', methods=['GET'])
+def rflush():
+    status = r.flushall()
+    result = {"status": status}
     return jsonify(result)
 
 
@@ -49,7 +57,6 @@ def rset():
 def rlist():
     keys = {}
     keys["keys"] = [x.decode('utf8') for x in r.keys()]
-    # time.sleep(3)
     return jsonify(**keys)
 
 
