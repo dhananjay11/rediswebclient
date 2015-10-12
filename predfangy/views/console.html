@@ -1,17 +1,16 @@
 
 <h2 class="text-center">Console</h2>
 <div ng-controller="ConsoleCtrl as console">
-    {{ history["1"] }}
     <div id="rcorners1" class="console-terminal">
-    <div ng-repeat="id in dataset">
-        <strong>You:> {{ history[id].command }} </strong> <br>
+    <div ng-repeat="hist in history">
+        <strong>You:> {{ hist.command }} </strong> <br>
         <blockquote>
-            Server:> {{ history[id].return }}
+            Server:> {{ hist.return }}
         </blockquote>
         </div>
     </div>
     <form class="redis-form" novalidate name="consoleForm"  ng-submit="console.sendCommand()">
-        <fieldset class="form-group">
+        <fieldslet class="form-group">
             <input ng-model="commandModel.command" name="command" class="form-control" title="command" placeholder="enter a command" required></input>
         </fieldset>
     </form>

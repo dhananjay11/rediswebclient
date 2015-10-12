@@ -9,7 +9,7 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-REDIS_CONNECTION = redis.StrictRedis(host='192.168.1.117', port=6379, db=0)
+REDIS_CONNECTION = redis.StrictRedis(host='localhost', port=6379, db=0)
 r = REDIS_CONNECTION
 
 

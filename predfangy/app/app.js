@@ -6,8 +6,8 @@
     function run($rootScope, $location, $http, $scope) {}
 
     app.controller('ConsoleCtrl', function($scope, $http){
-        $scope.counter = '0';
-        $scope.history = {};
+        $scope.history = [];
+        $scope.histModel = {}
         $scope.commandModel = {}
         this.sendCommand = function(){
             $http({
@@ -18,14 +18,12 @@
                 }
             })
                 .then(function(response) {
-                        var thisId = parseInt($scope.counter) + 1;
-                        $scope.history[thisId] = {};
-                        $scope.history[thisId].return = response.data['return'];
-                        $scope.history[thisId].command = $scope.commandModel.command;
-                        
+                        $scope.histModel = {};
+                        $scope.histModel.return = response.data['return'];
+                        $scope.histModel.command = $scope.commandModel.command;
+                        $scope.history.push($scope.histModel);
                         $scope.commandModel.command = '';
-                        console.log($scope.history[thisId]);
-
+                        $scope.histModel = {};
                     },
                     function(response) {
                         console.log(response)
