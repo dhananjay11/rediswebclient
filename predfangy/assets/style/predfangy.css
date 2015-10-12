@@ -7,18 +7,18 @@ table {border-collapse: collapse;  width: 90%; margin: 0 auto 5rem;}
 
 th, td { padding: 1.5rem; font-size: 1.3rem; }
 
-tr {background: hsl(80, 50%, 80%); }
+tr {background: silver; }
 
 tr, td { transition: .1s ease-in; } 
 
-tr:first-child {background: hsla(50, 100%, 40%, 0.5); }
+tr:first-child {background: gray; }
 
-tr:nth-child(even) { background: hsla(60, 50%, 80%, 0.7); }
+tr:nth-child(even) { background: silver; }
 
-td:empty {background: hsla(70, 25%, 60%, 0.7); }
+td:empty {background: silver; }
 
-tr:hover:not(#firstrow), tr:hover td:empty {background: silver; pointer-events: visible;}
-tr:hover:not(#firstrow) { transform: scale(1.1); font-weight: 700; box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.5);}
+tr:hover:not(#firstrow), tr:hover td:empty {background: hsla(60, 50%, 80%, 0.7); pointer-events: visible;}
+tr:hover:not(#firstrow) { transform: scale(1.15); font-weight: 700; box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.5);}
 
 div .totalkeys {
   text-align: center;
@@ -31,7 +31,7 @@ div .ctrls-span {
   margin-top: 15px;
   align-content: center;
   margin-left: 15%;
-  margin-right: 15%
+  margin-right: 15%5
 }
 
 .redis-form input.ng-invalid.ng-dirty {
@@ -75,17 +75,29 @@ a.buttonbuffer {
     margin-right: 10px;
 }
 
-#rcorners1 {
+#console {
     border-radius: 15px;
+    margin-top: 76px;
     padding: 20px; 
     width: 95%;
-    height: 85%;
-    margin-bottom: 15px;
+    height: 80%;
+    position: absolute;
+    color: lightgreen;
+    overflow-y: auto;
+    overflow: hidden;
+    background-color: black;
   }   
 
-div .console-terminal {
-    align-content: center;
-    background-color: lightblue;
+/*
+.console-terminal {
+    position: absolute;
     align-self: center;
-    width: 90%;
+    color: lightgreen;
+    overflow-y: auto;
+    overflow: hidden;
+    background-color: black;
+    width: 80%;
+    height: 50%;
 }
+*/
+

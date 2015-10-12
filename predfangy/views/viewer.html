@@ -13,8 +13,8 @@
                 <!--  Preview -->
                 <h4>Entry to be added:</h4>
                 <blockquote>
-                    <strong>Key: {{newKeyValModel.key}} </strong> <br>
-                    <cite class="clearfix">Value: {{newKeyValModel.value}}</cite>
+                    <strong>Key: {{ newKeyValModel.key }} </strong> <br>
+                    <cite class="clearfix">Value: {{ newKeyValModel.value }}</cite>
                 </blockquote>
                 <!--  add new key/value Form -->
                 <fieldset class="form-group">
@@ -41,7 +41,7 @@
                 </td>
                 <td data-th="Value" ng-mouseover="redis.getKeyVal(key)">
                     <form role="form" class="redis-form" novalidate name="modifyForm" ng-submit="redis.updateExistingKey(key, redis.updateExistingKey[key])">
-                        <input ng-model="redis.updateExistingKey[key]" ng-show="showKVFormFor[key]" placeholder="{{ cachedKeyVals[key].value }}" name="newval" required>
+                        <input class="form-control" ng-model="redis.updateExistingKey[key]" ng-show="showKVFormFor[key]" placeholder="{{ cachedKeyVals[key].value }}" name="newval" required>
                         <kval ng-show="!showKVFormFor[key]" ng-click="redis.editValueIconClick(key)">{{ cachedKeyVals[key].value }}</kval>
                     </form>
                 </td>
@@ -60,7 +60,7 @@
                     <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                     </kval>
                     <form role="form" class="redis-form" novalidate name="expForm" ng-submit="redis.setExpSecs(key, cachedKeyVals[key].ctr)">
-                        <input type="number" ng-model="cachedKeyVals[key].ctr" ng-show="showExpFormFor[key]" placeholder="{{ cachedKeyVals[key].ctr }}" name="expCounter" required>
+                        <input class="form-control" type="number" ng-model="cachedKeyVals[key].ctr" ng-show="showExpFormFor[key]" placeholder="{{ cachedKeyVals[key].ctr }}" name="expCounter" required>
                         <kval ng-show="!showExpFormFor[key]" ng-click="redis.showExpForm(key)">{{ cachedKeyVals[key].ctr }}</kval>
                     </form>   
                 </td>

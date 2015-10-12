@@ -1,10 +1,15 @@
 (function() {
 
     var app = angular.module('predfangy', []);
-    app.redisApi = 'http://192.168.1.117:5000/';
+    app.redisApi = 'http://localhost:5000/';
 
     function run($rootScope, $location, $http, $scope) {}
 
+    app.filter('reverse', function() {
+        return function(items) {
+            return items.slice().reverse();
+        };
+    });
     app.controller('ConsoleCtrl', function($scope, $http){
         $scope.history = [];
         $scope.histModel = {}
@@ -26,7 +31,12 @@
                         $scope.histModel = {};
                     },
                     function(response) {
-                        console.log(response)
+                        $scope.histModel = {};
+                        $scope.histModel.return = "Inavlid command.  Type /help for a list of valid commands, or see http://redis.io/commands.";
+                        $scope.histModel.command = $scope.commandModel.command;
+                        $scope.history.push($scope.histModel);
+                        //$scope.commandModel.command = '';
+                        //$scope.histModel = {};
                     });
         };
     });
@@ -51,7 +61,7 @@
         };
     });
     app.controller('ConfigCtrl', function($scope, $rootScope) {
-        app.redisApi = 'http://192.168.1.117:5000/';
+        app.redisApi = 'http://localhost:5000/';
         this.ce = app.redisApi;
         $scope.formModel = {};
         this.setConfig = function(model) {
@@ -77,7 +87,7 @@
     });
     // get redis keys from api
     app.controller("RedisCtrl", function($rootScope, $scope, $http, $timeout) {
-        $scope.keysList = {};
+        $scope.keysList = [];
         $scope.currentKeyData = {};
         $scope.cachedKeyVals = {};
         $scope.redisSingleKVModel = {};
@@ -180,7 +190,7 @@
         };
 
         this.refreshAllKeys = function() {
-            $scope.keysList = {};
+            $scope.keysList = [];
             $scope.searchResults = [];
             $scope.getAllKeys();
 
@@ -264,17 +274,16 @@
             console.log(model);
             if (!(model.key in $scope.keysList) && model.key !== "" && model.value !== "") {
                 $scope.keysList.push(model.key);
-                $scope.cachedKeyVals[model.key] = model.value;
+                $scope.cachedKeyVals[model.key] = {}
+                $scope.cachedKeyVals[model.key].value = model.value;
                 this.sendKV(model.key, model.value);
-                console.log(model);
             }
             $scope.newKeyValModel = {};
             model = {};
         };
         //initial grab of keys
         $scope.getAllKeys();
-        //$scope.keyCount = $scope.keyList.length;
-        //this.filterForKeys("test search");
+        
     });
     // begin connection modal
     app.directive('modalDialog', function() {
