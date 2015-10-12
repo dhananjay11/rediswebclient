@@ -83,7 +83,7 @@ def rexpsecs():
 
 @app.route('/rruncommand', methods=['POST'])
 def rruncommand():
-    result = r.execute_command((request.json['command'].encode('utf8')))
+    result = r.execute_command(bytes(request.json['command'].encode('utf8')))
     return jsonify({"return": result})
 
 
