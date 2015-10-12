@@ -81,6 +81,12 @@ def rexpsecs():
     return jsonify({"status": "success"})
 
 
+@app.route('/rruncommand', methods=['POST'])
+def rruncommand():
+    result = r.execute_command(request.json['command'])
+    return jsonify({"return": result})
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run()
