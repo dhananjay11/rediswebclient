@@ -6,23 +6,29 @@
     function run($rootScope, $location, $http, $scope) {}
 
     app.controller('ConsoleCtrl', function($scope, $http){
-        this.commandHistory = {};
-        this.responseHistory = {};
-        this.commandModel = {}
+        $scope.counter = '0';
+        $scope.history = {};
+        $scope.commandModel = {}
         this.sendCommand = function(){
             $http({
                 url: app.redisApi + "rruncommand",
                 method: "POST",
                 data: {
-                    'command': this.commandModel.command,
+                    'command': $scope.commandModel.command,
                 }
             })
                 .then(function(response) {
-                        console.log(response['return']);
-                        this.commandModel = {}
+                        var thisId = parseInt($scope.counter) + 1;
+                        $scope.history[thisId] = {};
+                        $scope.history[thisId].return = response.data['return'];
+                        $scope.history[thisId].command = $scope.commandModel.command;
+                        
+                        $scope.commandModel.command = '';
+                        console.log($scope.history[thisId]);
+
                     },
                     function(response) {
-                        console.log(response['return'])
+                        console.log(response)
                     });
         };
     });
