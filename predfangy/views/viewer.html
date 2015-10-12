@@ -7,7 +7,6 @@
             <a class="btn btn-danger buttonbuffer" ng-click="redis.flushAllKeys()">Flush All</a>
         </div>
         <div class="totalkeys">
-            Total keys: {{ redis.keyCount }}
         </div>
         <div ng-show="addnewform.show">
             <form class="redis-form" novalidate name="newkvform"  ng-submit="redis.setNewKeyVal(newKeyValModel)">

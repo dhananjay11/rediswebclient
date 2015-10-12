@@ -1,0 +1,16 @@
+
+<h2 class="text-center">Console</h2>
+<div ng-controller="ConsoleCtrl as console">
+    {{ console.commandHistory }}
+    <div class="console-terminal" ng-repeat="(key, value) in dataset">
+        <strong>You:> {{newKeyValModel.key}} </strong> <br>
+        <blockquote>
+            <cite class="clearfix">Server:> {{newKeyValModel.value}}</cite>
+        </blockquote>
+    </div>
+    <form class="redis-form" novalidate name="consoleForm"  ng-submit="console.sendCommand()">
+        <fieldset class="form-group">
+            <input ng-model="console.commandModel.command" name="command" class="form-control" title="command" placeholder="enter a command" required></input>
+        </fieldset>
+    </form>
+</div>

@@ -74,3 +74,8 @@ a.buttonbuffer {
     margin-left: 10px;
     margin-right: 10px;
 }
+
+div .console-terminal {
+    background-color: lightblue;
+    width: 90%;
+}

@@ -2,9 +2,30 @@
 
     var app = angular.module('predfangy', []);
     app.redisApi = 'http://192.168.1.117:5000/';
-    app.keyCount = 0;
 
     function run($rootScope, $location, $http, $scope) {}
+
+    app.controller('ConsoleCtrl', function($scope, $http){
+        this.commandHistory = {};
+        this.responseHistory = {};
+        this.commandModel = {}
+        this.sendCommand = function(){
+            $http({
+                url: app.redisApi + "rruncommand",
+                method: "POST",
+                data: {
+                    'command': this.commandModel.command,
+                }
+            })
+                .then(function(response) {
+                        console.log(response['return']);
+                        this.commandModel = {}
+                    },
+                    function(response) {
+                        console.log(response['return'])
+                    });
+        };
+    });
 
     app.controller('DocsCtrl', function($scope, $http) {
         console.log("write the docs, idiot.");
@@ -87,7 +108,7 @@
                     $scope.showExpFormFor[key] = false;
                     $scope.cachedKeyVals[key].expireAfter = true;
                     $scope.cachedKeyVals[key].expireAt = false;
-                    $scope.cachedKeyVals[key].counter = secs;
+                    $scope.cachedKeyVals[key].ctr = secs;
                         console.log(key + ' expires in ' + secs + ' seconds');
                     },
                     function(response) { // optional
