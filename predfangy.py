@@ -13,7 +13,7 @@ CORS(app)
 # REDIS_CONNECTION = redis.StrictRedis(host='localhost', port=6379, db=0)
 
 REDIS_CONNECTION = redis.from_url(
-        "redis://h:pdvijp0j192i1taragjuoupdkvk@ec2-54-225-132-156.compute-1.amazonaws.com:8369")
+    "redis://h:pdvijp0j192i1taragjuoupdkvk@ec2-54-225-132-156.compute-1.amazonaws.com:8369")
 
 r = REDIS_CONNECTION
 
@@ -90,8 +90,7 @@ def rexpsecs():
 def rruncommand():
     result = r.execute_command(str(request.json['command']))
     return jsonify({"return": [x for x in result.decode('utf8').split('\n')],
-                    "status": "success"}
-        })
+                    "status": "success"})
 
 
 if __name__ == '__main__':
