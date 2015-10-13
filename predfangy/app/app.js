@@ -1,7 +1,7 @@
 (function() {
 
     var app = angular.module('predfangy', []);
-    app.redisApi = 'http://localhost:5000/';
+    app.redisApi = 'https://predisfangular.herokuapp.com/';
 
     function run($rootScope, $location, $http, $scope) {}
 
@@ -10,11 +10,11 @@
             return items.slice().reverse();
         };
     });
-    app.controller('ConsoleCtrl', function($scope, $http){
+    app.controller('ConsoleCtrl', function($scope, $http) {
         $scope.history = [];
         $scope.histModel = {}
         $scope.commandModel = {}
-        this.sendCommand = function(){
+        this.sendCommand = function() {
             $http({
                 url: app.redisApi + "rruncommand",
                 method: "POST",
@@ -61,7 +61,7 @@
         };
     });
     app.controller('ConfigCtrl', function($scope, $rootScope) {
-        app.redisApi = 'http://localhost:5000/';
+        app.redisApi = 'https://predisfangular.herokuapp.com/';
         this.ce = app.redisApi;
         $scope.formModel = {};
         this.setConfig = function(model) {
@@ -100,15 +100,17 @@
         $scope.showSearchResults = false;
         $scope.showExpFormFor = {}
 
-        this.showExpForm = function(key){
+
+
+        this.showExpForm = function(key) {
             console.log(key);
             $scope.showExpFormFor[key] = !$scope.showExpFormFor[key];
             return $scope.showExpFormFor[key];
         };
 
-        this.setExpSecs = function(key, secs){
+        this.setExpSecs = function(key, secs) {
             console.log(key + ' ' + secs)
-            
+
             $scope.cachedKeyVals[key].timeStamp = Date.now;
             $http({
                 url: app.redisApi + "rexpsecs",
@@ -119,10 +121,10 @@
                 }
             })
                 .then(function(response) {
-                    $scope.showExpFormFor[key] = false;
-                    $scope.cachedKeyVals[key].expireAfter = true;
-                    $scope.cachedKeyVals[key].expireAt = false;
-                    $scope.cachedKeyVals[key].ctr = secs;
+                        $scope.showExpFormFor[key] = false;
+                        $scope.cachedKeyVals[key].expireAfter = true;
+                        $scope.cachedKeyVals[key].expireAt = false;
+                        $scope.cachedKeyVals[key].ctr = secs;
                         console.log(key + ' expires in ' + secs + ' seconds');
                     },
                     function(response) { // optional
@@ -281,9 +283,46 @@
             $scope.newKeyValModel = {};
             model = {};
         };
+
+        var keysListDiff = function(a, b) {
+            var result = [];
+            for (var i = 0; i < a.length; i++) {
+                for (var j = 0; j < b.length; j++) {
+                    if (a[i] == b[j]) {
+                      result.push(a)
+                    }
+                }
+            }
+            /*var result = new Array();
+            while (a.length > 0 && b.length > 0) {
+                if (a[0] < b[0]) {
+                    a.shift();
+                } else if (a[0] > b[0]) {
+                    b.shift();
+                } else {
+                    result.push(a.shift());
+                    b.shift();
+                }
+            }
+*/
+            return result;
+        };
+        // build cache every x seconds on server and have it ready to retrieve to speed this up for multiple clients.
+        this.checkCurrentKeys = function() {
+            $http.get(app.redisApi + "rlist").
+            success(function(data, status, headers, config) {
+                var thisList = data.keys;
+                console.log(data);
+                $scope.keysList = thisList;//intersection($scope.keysList, thisList);
+            }).
+            error(function(data, status, headers, config) {
+                console.log('Could not get keys to compare.');
+            });
+        };
         //initial grab of keys
         $scope.getAllKeys();
-        
+        this.monitor = setInterval(this.checkCurrentKeys, 10000);
+
     });
     // begin connection modal
     app.directive('modalDialog', function() {
