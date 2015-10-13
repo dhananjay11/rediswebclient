@@ -55,9 +55,17 @@ div .totalkeys {
 }
 
 div .center-nav {
+  align-self: center;
+  align-items: center;
   align-content: center;
   text-align: center;
   width: 95%;
+}
+
+/*.center-pills { display: inline-block; }*/
+.center-pills {
+    display: flex;
+    justify-content: center;
 }
 
 ul .nav-loc {
