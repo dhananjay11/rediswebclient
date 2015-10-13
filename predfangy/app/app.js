@@ -114,12 +114,13 @@
         };
 
         this.toggleAutoRefresh = function(refresh) {
-            var monitor = {};
-            console.log(refresh);
+            //var monitor = {};
+            //console.log(refresh);
             if (refresh) {
-                monitor = setInterval(this.checkCurrentKeys, (app.refreshRate * 1000));
+                //monitor = setInterval(this.checkCurrentKeys, (app.refreshRate * 1000));
             } else {
-                clearInterval(monitor);
+                //clearInterval(monitor);
+                //monitor = {};
             }
         };
         this.setExpSecs = function(key, secs) {
@@ -325,7 +326,7 @@
         };
         //initial grab of keys
         $scope.getAllKeys();
-        //setInterval(this.checkCurrentKeys, (app.refreshRate * 1000));
+        setInterval(this.checkCurrentKeys, (app.refreshRate * 1000));
     });
     // begin connection modal
     app.directive('modalDialog', function() {
