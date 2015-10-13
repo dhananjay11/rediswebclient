@@ -2,6 +2,8 @@
 
     var app = angular.module('predfangy', []);
     app.redisApi = 'https://predisfangular.herokuapp.com/';
+    app.refreshRate = 10;
+    app.autoRefresh = true;
 
     function run($rootScope, $location, $http, $scope) {}
 
@@ -68,6 +70,9 @@
             app.redisApi = model.endpoint;
             this.ce = app.redisApi;
         };
+        this.setRefreshRate = function(rate) {
+            app.refreshRate = rate;
+        };
     });
     app.directive("navTabs", function() {
         return {
@@ -98,8 +103,8 @@
         $scope.searchResults = {};
         $scope.searchText = "";
         $scope.showSearchResults = false;
-        $scope.showExpFormFor = {}
-
+        $scope.showExpFormFor = {};
+        $scope.confModel = {};
 
 
         this.showExpForm = function(key) {
@@ -108,6 +113,15 @@
             return $scope.showExpFormFor[key];
         };
 
+        this.toggleAutoRefresh = function(refresh) {
+            var monitor = {};
+            console.log(refresh);
+            if (refresh) {
+                monitor = setInterval(this.checkCurrentKeys, (app.refreshRate * 1000));
+            } else {
+                clearInterval(monitor);
+            }
+        };
         this.setExpSecs = function(key, secs) {
             console.log(key + ' ' + secs)
 
@@ -299,10 +313,11 @@
         };
         // build cache every x seconds on server and have it ready to retrieve to speed this up for multiple clients.
         this.checkCurrentKeys = function() {
+            console.log(app.refreshRate);
             $http.get(app.redisApi + "rlist").
             success(function(data, status, headers, config) {
                 var thisList = data.keys;
-                $scope.keysList = thisList;//intersection($scope.keysList, thisList);
+                $scope.keysList = thisList; //intersection($scope.keysList, thisList);
             }).
             error(function(data, status, headers, config) {
                 console.log('Could not refresh keys list.');
@@ -310,8 +325,7 @@
         };
         //initial grab of keys
         $scope.getAllKeys();
-        this.monitor = setInterval(this.checkCurrentKeys, 10000);
-
+        //setInterval(this.checkCurrentKeys, (app.refreshRate * 1000));
     });
     // begin connection modal
     app.directive('modalDialog', function() {

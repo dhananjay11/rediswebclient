@@ -1,11 +1,9 @@
   
 <div>
     <!--  Browser  -->
-    <div ng-show="nav.isSet(2)" ng-include="'views/viewer.html'">
-    </div>
+    <div ng-show="nav.isSet(2)" ng-include="'views/viewer.html'"></div>
     <!--  Confg form  -->
-    <div config ng-show="nav.isSet(1)" ng-include="'views/config.html'">
-    </div>
+    <div ng-show="nav.isSet(1)" ng-include="'views/config.html'"></div>
     <!-- redis command console -->
     <div ng-show="nav.isSet(4)" ng-include="'views/console.html'"></div>
     <!--  Docs -->
