@@ -1,62 +1,54 @@
-<<<<<<< HEAD
-/venv
-*.pyc
-=======
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
-
 # PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*,cover
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
 *.log
-
-# Sphinx documentation
+lib/
+# Unit test / coverage reports
+lib64/
+# Translations
 docs/_build/
-
+<<<<<<< HEAD
+# C extensions
+/venv
+# Byte-compiled / optimized / DLL files
+parts/
+*,cover
+coverage.xml
+pip-delete-this-directory.txt
+downloads/
+*.spec
+*.so
+htmlcov/
+.coverage
+__pycache__/
+*.pot
+sdist/
+.coverage.*
+*.py[cod]
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+>>>>>>> 65bb8a36f36bf50173847eb7a656917ab8a57730
+*.manifest
+.tox/
 # PyBuilder
 target/
->>>>>>> 65bb8a36f36bf50173847eb7a656917ab8a57730
+dist/
+pip-log.txt
+.cache
+var/
+# Django stuff:
+*.egg-info/
+*.pyc
+=======
+*.egg
+/predfangy/node_modules
+# Distribution / packaging
+build/
+# Installer logs
+# Sphinx documentation
+develop-eggs/
+.Python
+env/
+nosetests.xml
+.eggs/
+.installed.cfg
+eggs/
+#  Usually these files are written by a python script from a template
+*.mo
