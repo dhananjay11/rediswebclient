@@ -26,19 +26,22 @@
             })
                 .then(function(response) {
                         $scope.histModel = {};
+                        $scope.histModel.return = []
                         $scope.histModel.return = response.data['return'];
                         $scope.histModel.command = $scope.commandModel.command;
                         $scope.history.push($scope.histModel);
                         $scope.commandModel.command = '';
                         $scope.histModel = {};
+                        
                     },
                     function(response) {
                         $scope.histModel = {};
-                        $scope.histModel.return = "Inavlid command.  Type /help for a list of valid commands, or see http://redis.io/commands.";
+                        $scope.histModel.return = ["Inavlid command.  Type /help for a list of valid commands, or see http://redis.io/commands."];
                         $scope.histModel.command = $scope.commandModel.command;
                         $scope.history.push($scope.histModel);
                         //$scope.commandModel.command = '';
                         //$scope.histModel = {};
+                        //http://localhost:5000/
                     });
         };
     });
