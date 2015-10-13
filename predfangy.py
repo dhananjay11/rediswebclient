@@ -4,12 +4,18 @@ import redis
 import random
 import time
 import json
-
+import socket
 
 app = Flask(__name__)
 CORS(app)
+hostname
 
 REDIS_CONNECTION = redis.StrictRedis(host='localhost', port=6379, db=0)
+
+if socket.gethostname() != 'vacojaro':
+    REDIS_CONNECTION = redis.from_url(os.environ.get(
+        "redis://h:pdvijp0j192i1taragjuoupdkvk@ec2-54-225-132-156.compute-1.amazonaws.com:8369"))
+
 r = REDIS_CONNECTION
 
 
