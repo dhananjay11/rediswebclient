@@ -1,0 +1,18 @@
+{
+  "name": "predisfangular",
+  "version": "1.0.0",
+  "description": "angular client for redis json api",
+  "main": "server.js",
+  "dependencies": {
+    "juggernaut": "2.0.5",
+    "connect": "^3.4.0",
+    "serve-static": "^1.10.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Joe Vacovsky",
+  "license": "ISC"
+}
