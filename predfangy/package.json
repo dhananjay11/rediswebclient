@@ -1,6 +1,7 @@
 {
   "name": "predisfangular",
   "version": "1.0.0",
+  "repository": "https://github.com/vacoj/PRedisFAngular",
   "description": "angular client for redis json api",
   "main": "server.js",
   "dependencies": {

@@ -1,6 +1,5 @@
-<div class="ctrls-span">
-
-    <ul class="nav nav-pills">
+  <div>
+    <ul class="nav-loc nav nav-pills ">
       <li ng-class="{ active:tab.isSet(1) }">
         <a href class="btn btn-primary" ng-click="nav.setTab(1)"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configuration</a>
       </li>
@@ -17,6 +16,8 @@
         <a href="https://github.com/vacoj/PRedisFAngular" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> GitHub Repo</a>
       </li>
     </ul>
+</div>
+<div>
     <!--  Browser  -->
     <div ng-show="nav.isSet(2)" ng-include="'views/viewer.html'">
     </div>
@@ -27,5 +28,4 @@
     <div ng-show="nav.isSet(4)" ng-include="'views/console.html'"></div>
     <!--  Docs -->
     <docs ng-show="nav.isSet(3)" ng-include="'views/docs.html'"></docs>
-
 </div>

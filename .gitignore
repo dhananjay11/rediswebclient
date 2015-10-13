@@ -4,13 +4,14 @@ lib/
 # Unit test / coverage reports
 lib64/
 # Translations
-docs/_build/
 <<<<<<< HEAD
 # C extensions
 /venv
+build/
 # Byte-compiled / optimized / DLL files
+eggs/
 parts/
-*,cover
+/__pycache__
 coverage.xml
 pip-delete-this-directory.txt
 downloads/
@@ -20,35 +21,35 @@ htmlcov/
 .coverage
 __pycache__/
 *.pot
-sdist/
+docs/_build/
 .coverage.*
 *.py[cod]
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 >>>>>>> 65bb8a36f36bf50173847eb7a656917ab8a57730
-*.manifest
+*,cover
 .tox/
 # PyBuilder
 target/
 dist/
-pip-log.txt
 .cache
 var/
+# Installer logs
 # Django stuff:
-*.egg-info/
+.eggs/
 *.pyc
 =======
 *.egg
 /predfangy/node_modules
 # Distribution / packaging
-build/
-# Installer logs
+pip-log.txt
+sdist/
 # Sphinx documentation
 develop-eggs/
 .Python
 env/
 nosetests.xml
-.eggs/
+*.manifest
 .installed.cfg
-eggs/
+*.egg-info/
 #  Usually these files are written by a python script from a template
 *.mo

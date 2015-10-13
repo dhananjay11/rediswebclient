@@ -60,12 +60,13 @@
                     <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                     </kval>
                     <div>
-                    <form role="form" class="col-sm-4 redis-form" novalidate name="expForm" ng-submit="redis.setExpSecs(key, cachedKeyVals[key].ctr)">
-                        <input class="form-control " type="number" ng-model="cachedKeyVals[key].ctr" ng-show="showExpFormFor[key]" placeholder="{{ cachedKeyVals[key].ctr }}" name="expCounter" required>
-                        <kval ng-show="!showExpFormFor[key]" ng-click="redis.showExpForm(key)">{{ cachedKeyVals[key].ctr }}</kval>
-                    </form>
+                        <form role="form" class="col-sm-4 redis-form" novalidate name="expForm" ng-submit="redis.setExpSecs(key, cachedKeyVals[key].ctr)">
+                            <input class="" type="number" ng-model="cachedKeyVals[key].ctr" maxlength="9" ng-show="showExpFormFor[key]" placeholder="{{ cachedKeyVals[key].ctr }}" name="expCounter" required>
+                            <kval ng-show="!showExpFormFor[key]" ng-click="redis.showExpForm(key)">{{ cachedKeyVals[key].ctr }}</kval>
+                        </form>
                     </div>
                 </td>
             </tr>
-        </table>
-    </div>
+        </span>
+    </table>
+</div>
