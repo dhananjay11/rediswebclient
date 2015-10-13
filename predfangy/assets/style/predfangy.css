@@ -15,16 +15,17 @@ h1, table {
     margin-bottom: 0px;
 }
 
-table {
-  border-collapse: collapse;  
-  width: 94%; 
-  border: 2px solid #a1a1a1;
-  margin: 0 auto 5rem; 
-  border-collapse: separate;
-  border-bottom: 1px solid silver;
-  border-spacing: 0;
-  border-radius: 5px;
+#redis-view {
+  text-align: left;
+  vertical-align: center;
+  padding: 2px;
+  outline: none;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+  margin-bottom: 15px;
+  width: 100%;
   }
+
 th, td { 
   font-size: 1.3rem; 
   margin-bottom: 3px; 
@@ -149,15 +150,19 @@ a.buttonbuffer {
     margin-right: 10px;
 }
 
+.center-div {
+  vertical-align: center;
+  text-align: center;
+}
+
 #console {
+padding: 2px;
+  outline: none;
+  border: none;
+  box-shadow: 0 3px 4px rgba(0,0,0,0.25);
+  margin-bottom: 0px;
   text-align: left;
-  border-collapse: collapse;  
-  border: 2px solid #a1a1a1;
   margin: 0 auto 5rem; 
-  border-collapse: separate;
-  border-bottom: 1px solid silver;
-  border-spacing: 0;
-  border-radius: 5px;
   margin-top: 76px;
   width: 96.5%;
   height: 65%;
@@ -165,7 +170,7 @@ a.buttonbuffer {
   color: lightgreen;
   overflow-y: auto;
   overflow: hidden;
-  background-color: black;
+  background-color: #434E56;
   }   
 
 /*
@@ -225,7 +230,6 @@ position: absolute;
 width: 388px;
 top: 6px;
 left: 6px;
-
 -webkit-border-radius: 40px;
 -moz-border-radius: 40px;
 border-radius: 40px;
