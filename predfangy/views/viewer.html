@@ -1,10 +1,10 @@
-<h2 class="text-center">Key Browser</h2>
+<h2 class="text-center text-shadow">Key Browser</h2>
 <div ng-controller="RedisCtrl as redis">
     <div ng-controller="AddNewKVCtrl as addnewform">
         <div class="ctrls-span">
-            <a class="btn btn-info buttonbuffer" ng-click="redis.refreshAllKeys()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</a>
-            <a href class="btn btn-success buttonbuffer" ng-click="addnewform.toggleForm()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Toggle Add New Form</a>
-            <a class="btn btn-danger buttonbuffer" ng-click="redis.flushAllKeys()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Flush All</a>
+            <a class="btn btn-info buttonbuffer shadow text-shadow" ng-click="redis.refreshAllKeys()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</a>
+            <a href class="btn btn-success buttonbuffer shadow text-shadow" ng-click="addnewform.toggleForm()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Toggle Add New Form</a>
+            <a class="btn btn-danger buttonbuffer shadow text-shadow" ng-click="redis.flushAllKeys()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Flush All</a>
         </div>
 
         <div ng-show="addnewform.show">
@@ -37,9 +37,9 @@
         <!-- pagination end -->
         <table id="redis-view">
             <tr id="firstrow">
-                <th class="col-sm-4">Key <input class="search floaty-input" ng-model="searchText" placeholder="search keys" ng-change="redis.filterForKeys(searchText)"/></th>
-                <th class="col-sm-4">Value</th>
-                <th class="col-sm-3">Controls</th>
+                <th class="col-sm-4 text-shadow">Key <input class="search floaty-input" ng-model="searchText" placeholder="search keys" ng-change="redis.filterForKeys(searchText)"/></th>
+                <th class="col-sm-4 text-shadow">Value</th>
+                <th class="col-sm-3 text-shadow">Controls</th>
             </tr>
             <tr ng-repeat="key in keysList | orderBy: key | filter: paginate" ng-show="!showSearchResults || (showSearchResults && searchResults[key])">
                 <td data-th="Key" scroll-trigger="redis.getKeyVal(key)">
