@@ -273,7 +273,6 @@
             this.ev = {};
         };
         this.setNewKeyVal = function(model) {
-            console.log(model);
             if (!(model.key in $scope.keysList) && model.key !== "" && model.value !== "") {
                 $scope.keysList.push(model.key);
                 $scope.cachedKeyVals[model.key] = {}
@@ -284,16 +283,8 @@
             model = {};
         };
 
-        var keysListDiff = function(a, b) {
-            var result = [];
-            for (var i = 0; i < a.length; i++) {
-                for (var j = 0; j < b.length; j++) {
-                    if (a[i] == b[j]) {
-                      result.push(a)
-                    }
-                }
-            }
-            /*var result = new Array();
+        var intersection = function(a, b) {
+            var result = new Array();
             while (a.length > 0 && b.length > 0) {
                 if (a[0] < b[0]) {
                     a.shift();
@@ -304,7 +295,6 @@
                     b.shift();
                 }
             }
-*/
             return result;
         };
         // build cache every x seconds on server and have it ready to retrieve to speed this up for multiple clients.
@@ -312,11 +302,10 @@
             $http.get(app.redisApi + "rlist").
             success(function(data, status, headers, config) {
                 var thisList = data.keys;
-                console.log(data);
                 $scope.keysList = thisList;//intersection($scope.keysList, thisList);
             }).
             error(function(data, status, headers, config) {
-                console.log('Could not get keys to compare.');
+                console.log('Could not refresh keys list.');
             });
         };
         //initial grab of keys
