@@ -6,8 +6,7 @@
             <a href class="btn btn-success buttonbuffer" ng-click="addnewform.toggleForm()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Toggle Add New Form</a>
             <a class="btn btn-danger buttonbuffer" ng-click="redis.flushAllKeys()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Flush All</a>
         </div>
-        <div class="totalkeys">
-        </div>
+
         <div ng-show="addnewform.show">
             <form class="redis-form" novalidate name="newkvform"  ng-submit="redis.setNewKeyVal(newKeyValModel)">
                 <!--  Preview -->
@@ -30,13 +29,19 @@
         </div>
     </div>
     <div class="center-div">
+        <!-- PAGINANTION!-->
+        <pagination total-items="totalItems" ng-model="currentPage"
+          max-size="15" boundary-links="false"
+          items-per-page="numPerPage" class="shadow pagination-sm">
+        </pagination>
+        <!-- pagination end -->
         <table id="redis-view">
             <tr id="firstrow">
                 <th class="col-sm-4">Key <input class="search floaty-input" ng-model="searchText" placeholder="search keys" ng-change="redis.filterForKeys(searchText)"/></th>
                 <th class="col-sm-4">Value</th>
                 <th class="col-sm-3">Controls</th>
             </tr>
-            <tr ng-repeat="key in keysList | orderBy: key | limitTo:25" ng-show="!showSearchResults || (showSearchResults && searchResults[key])">
+            <tr ng-repeat="key in keysList | orderBy: key | filter: paginate" ng-show="!showSearchResults || (showSearchResults && searchResults[key])">
                 <td data-th="Key" scroll-trigger="redis.getKeyVal(key)">
                     <span ng-click="redis.getKeyVal(key)">{{ key }}<span>
                     </td>
@@ -49,16 +54,16 @@
                     
                     <td data-th="Controls">
                         <kval ng-click="redis.getKeyValClick(key)">
-                        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-refresh shadow" aria-hidden="true"></span>
                         </kval>
                         <kval ng-click="redis.editValueIconClick(key)">
-                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-pencil shadow" aria-hidden="true"></span>
                         </kval>
                         <kval ng-click="redis.deleteKVPair(key)">
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-trash shadow" aria-hidden="true"></span>
                         </kval>
                         <kval ng-click="redis.showExpForm(key)">
-                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-time shadow" aria-hidden="true"></span>
                         </kval>
                         <div>
                             <form role="form" class="col-sm-4 redis-form" novalidate name="expForm" ng-submit="redis.setExpSecs(key, cachedKeyVals[key].ctr)">
@@ -70,5 +75,6 @@
                 </tr>
             </span>
         </table>
+         
     </div>
 </div>

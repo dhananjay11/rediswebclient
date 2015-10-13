@@ -1,6 +1,6 @@
 (function() {
 
-    var app = angular.module('predfangy', []);
+    var app = angular.module('predfangy', ['ui.bootstrap']);
     app.redisApi = 'https://predisfangular.herokuapp.com/';
     app.refreshRate = 10;
     app.autoRefresh = true;
@@ -106,7 +106,22 @@
         $scope.showExpFormFor = {};
         $scope.confModel = {};
 
+        /*
+        pagination controls
+        */
 
+        $scope.currentPage = 1;
+        $scope.numPerPage = 15;
+        $scope.paginate = function(value) {
+            var begin, end, index;
+            begin = ($scope.currentPage - 1) * $scope.numPerPage;
+            end = begin + $scope.numPerPage;
+            index = $scope.keysList.indexOf(value);
+            return (begin <= index && index < end);
+        };
+        /* 
+        end pagination controls 
+        */
         this.showExpForm = function(key) {
             console.log(key);
             $scope.showExpFormFor[key] = !$scope.showExpFormFor[key];
@@ -242,6 +257,7 @@
             $http.get(app.redisApi + 'rlist').
             success(function(data, status, headers, config) {
                 $scope.keysList = data.keys;
+                $scope.totalItems = data.keys.length;
                 $scope.keysList.forEach(function(k) {
                     $scope.showKVFormFor[k] = false;
                 });
@@ -319,6 +335,7 @@
             success(function(data, status, headers, config) {
                 var thisList = data.keys;
                 $scope.keysList = thisList; //intersection($scope.keysList, thisList);
+                $scope.totalItems = data.keys.length;
             }).
             error(function(data, status, headers, config) {
                 console.log('Could not refresh keys list.');
