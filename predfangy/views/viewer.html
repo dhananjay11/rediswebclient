@@ -18,10 +18,10 @@
                 </blockquote>
                 <!--  add new key/value Form -->
                 <fieldset class="form-group">
-                    <input ng-model="newKeyValModel.key" name="newkey" class="form-control" title="new key" placeholder="key" required></input>
+                    <input ng-model="newKeyValModel.key" name="newkey" class="form-control floaty-input" title="new key" placeholder="key" required></input>
                 </fieldset>
                 <fieldset class="form-group">
-                    <textarea ng-model="newKeyValModel.value" name="newval" class="form-control" placeholder="value" title="value" required></textarea>
+                    <textarea ng-model="newKeyValModel.value" name="newval" class="form-control floaty-input" placeholder="value" title="value" required></textarea>
                 </fieldset>
                 <fieldset class="form-group">
                     <input ng-show="newkvform.newkey.$dirty && newkvform.newval.$dirty" type="submit" class="btn btn-primary pull-right" value="Set Key" />
@@ -31,7 +31,7 @@
     </div>
     <table class="racetimes">
         <tr id="firstrow">
-            <th class="col-sm-4">Key <input class="search" ng-model="searchText" placeholder="search keys" ng-change="redis.filterForKeys(searchText)"/></th>
+            <th class="col-sm-4">Key <input class="search floaty-input" ng-model="searchText" placeholder="search keys" ng-change="redis.filterForKeys(searchText)"/></th>
             <th class="col-sm-4">Value</th>
             <th class="col-sm-3">Controls</th>
         </tr>

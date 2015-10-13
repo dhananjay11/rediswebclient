@@ -5,16 +5,16 @@
         <div class="form-group">
             <p>
                 <label class="sr-only" for="apiendpoint">API Endpoint</label>
-                <input ng-model="formModel.endpoint" name="apiendpoint" ng-blur="conf.setConfig(formModel)" class=" form-control" title="API Endpoint" placeholder="https://predisfangular.herokuapp.com/" required></input>
+                <input ng-model="formModel.endpoint" name="apiendpoint" ng-blur="conf.setConfig(formModel)" class=" floaty-input col-sm-4" title="API Endpoint" placeholder="https://predisfangular.herokuapp.com/" required></input><br><br>
             </p>
             <div ng-controller="RedisCtrl as redis"
                 <p>
-                    <label><input ng-model="confModel.refreshToggle" ng-change="redis.toggleAutoRefresh(confModel.refreshToggle)" type="checkbox" value="true">Enable Automatic Refresh: </label>
+                    <label><input class="floaty-input" ng-model="confModel.refreshToggle" ng-change="redis.toggleAutoRefresh(confModel.refreshToggle)" type="checkbox" value="true"> Enable Automatic Refresh </label><br>
                 </p>
             </div>
-            <p>
+            <p class="col-sm-4">
                 <label for="refreshRate">Refresh Rate (seconds between): {{ formModel.refreshRate }}</label>
-                <input ng-change="conf.setRefreshRate(formModel.refreshRate)" ng-model="formModel.refreshRate" type="range" name="refreshRate" id="refreshRate" value="3" min="5" max="60">
+                <input class="floaty-input " ng-change="conf.setRefreshRate(formModel.refreshRate)" ng-model="formModel.refreshRate" type="range" name="refreshRate" id="refreshRate" value="3" min="5" max="60">
             </p>
             
         </div>

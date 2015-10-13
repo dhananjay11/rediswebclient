@@ -6,6 +6,15 @@ h1, table {
   text-align: left; 
 }
 
+
+.floaty-input {
+    padding: 2px;
+    outline: none;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    margin-bottom: 0px;
+}
+
 table {
   border-collapse: collapse;  
   width: 94%; 
@@ -19,7 +28,9 @@ table {
 th, td { 
   font-size: 1.3rem; 
   margin-bottom: 3px; 
-
+}
+th {
+  padding: 3px;
 }
 tr {
   background: #434E56;
