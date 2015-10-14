@@ -1,4 +1,8 @@
 # PRedisFAngular
+
+[Demo can be found HERE](http://predfang.herokuapp.com/)
+(the demo is hosted on a heroku free dyno, so don't expect it to load quickly!)
+
 This project has two main pieces:  a JSON API, written in Python/Flask, and an AngularJS application.  
 
 
