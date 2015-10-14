@@ -17,4 +17,6 @@ This is the endpoint which is pointed to in the configuration tab of the client 
 Start the server with ```python predfangy.py```, then see the next section.
 
 ### Step 3: PRedisFAngular Client (in AngularJS)
-In this repo, the AngularJS application (in the /predfangy directory) can be started in Node.js by running ```node predfangy/server.js```.  This can be hosted on the web server of your choice.
+In this repo, the AngularJS application (in the /predfangy directory) can be started in Node.js by running 
+```node predfangy/server.js```
+Note: this can be hosted on the web server of your choice.
