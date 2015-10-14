@@ -125,8 +125,6 @@
         };
 
         this.loadAllValues = function() {
-            console.log("are they laoded?");
-            //$scope.autoLoadvalues = !$scope.autoLoadValues;
             $scope.keysList.forEach(function(key) {
                 $scope.getKeyVal(key);
             });
@@ -267,7 +265,7 @@
             $scope.searchResults = [];
             $scope.getAllKeys();
             if ($scope.autoLoadValues) {
-                $scope.loadAllValues();
+                this.loadAllValues();
             }
 
         };
