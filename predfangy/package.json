@@ -5,6 +5,7 @@
   "description": "angular client for redis json api",
   "main": "server.js",
   "dependencies": {
+    "newrelic": "1.22.1",
     "juggernaut": "2.0.5",
     "connect": "^3.4.0",
     "serve-static": "^1.10.0"
