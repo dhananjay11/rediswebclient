@@ -36,6 +36,11 @@ th {
 tr {
   background: #434E56;
 }
+
+pagination .bg-color {
+  background-color: #434E56;
+}
+
 tr, td { 
   transition: .1s ease-in; 
   align-content: left;

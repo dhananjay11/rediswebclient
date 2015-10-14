@@ -3,36 +3,40 @@
     <div ng-controller="AddNewKVCtrl as addnewform">
         <div class="ctrls-span">
             <a class="btn btn-info buttonbuffer shadow text-shadow" ng-click="redis.refreshAllKeys()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</a>
+            <a class="btn btn-warning buttonbuffer shadow text-shadow" ng-click="redis.loadAllValues()"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Load Values</a>
             <a href class="btn btn-success buttonbuffer shadow text-shadow" ng-click="addnewform.toggleForm()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Toggle Add New Form</a>
             <a class="btn btn-danger buttonbuffer shadow text-shadow" ng-click="redis.flushAllKeys()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Flush All</a>
         </div>
-
         <div ng-show="addnewform.show">
             <form class="redis-form" novalidate name="newkvform"  ng-submit="redis.setNewKeyVal(newKeyValModel)">
                 <!--  Preview -->
                 <h4>Entry to be added:</h4>
-                <blockquote>
+                <p>
                     <strong>Key: {{ newKeyValModel.key }} </strong> <br>
                     <cite class="clearfix">Value: {{ newKeyValModel.value }}</cite>
-                </blockquote>
+                </p>
                 <!--  add new key/value Form -->
-                <fieldset class="form-group">
-                    <input ng-model="newKeyValModel.key" name="newkey" class="form-control floaty-input" title="new key" placeholder="key" required></input>
-                </fieldset>
-                <fieldset class="form-group">
-                    <textarea ng-model="newKeyValModel.value" name="newval" class="form-control floaty-input" placeholder="value" title="value" required></textarea>
-                </fieldset>
-                <fieldset class="form-group">
-                    <input ng-show="newkvform.newkey.$dirty && newkvform.newval.$dirty" type="submit" class="btn btn-primary pull-right" value="Set Key" />
-                </fieldset>
+                <div>
+                    <p>
+                        <input ng-model="newKeyValModel.key" name="newkey" class="floaty-input col-sm-4" title="new key" placeholder="key" required></input>
+                    </p>
+                    <br><br>
+                    <p>
+                        <textarea ng-model="newKeyValModel.value" name="newval" class="floaty-input col-sm-4" placeholder="value" title="value" required></textarea>
+                    </p>
+                    <br><br>
+                    <p>
+                        <input ng-show="newkvform.newkey.$dirty && newkvform.newval.$dirty" type="submit" class="btn btn-primary pull-left" value="Set Key" />
+                    </p>
+                </div>
             </form>
         </div>
     </div>
     <div class="center-div">
         <!-- PAGINANTION!-->
         <pagination total-items="totalItems" ng-model="currentPage"
-          max-size="15" boundary-links="false"
-          items-per-page="numPerPage" class="shadow pagination-sm">
+            max-size="15" boundary-links="false"
+            items-per-page="numPerPage" class="shadow pagination-sm bg-color">
         </pagination>
         <!-- pagination end -->
         <table id="redis-view">
@@ -42,10 +46,10 @@
                 <th class="col-sm-3 text-shadow">Controls</th>
             </tr>
             <tr ng-repeat="key in keysList | orderBy: key | filter: paginate" ng-show="!showSearchResults || (showSearchResults && searchResults[key])">
-                <td data-th="Key" scroll-trigger="redis.getKeyVal(key)">
-                    <span ng-click="redis.getKeyVal(key)">{{ key }}<span>
+                <td data-th="Key" scroll-trigger="getKeyVal(key)">
+                    <span ng-click="getKeyVal(key)">{{ key }}<span>
                     </td>
-                    <td data-th="Value" ng-mouseover="redis.getKeyVal(key)">
+                    <td data-th="Value" ng-mouseover="getKeyVal(key)">
                         <form role="form" class="redis-form" novalidate name="modifyForm" ng-submit="redis.updateExistingKey(key, redis.updateExistingKey[key])">
                             <input class="form-control" ng-model="redis.updateExistingKey[key]" ng-show="showKVFormFor[key]" placeholder="{{ cachedKeyVals[key].value }}" name="newval" required>
                             <kval ng-show="!showKVFormFor[key]" ng-click="redis.editValueIconClick(key)">{{ cachedKeyVals[key].value }}</kval>
@@ -53,7 +57,7 @@
                     </td>
                     
                     <td data-th="Controls">
-                        <kval ng-click="redis.getKeyValClick(key)">
+                        <kval ng-click="getKeyValClick(key)">
                         <span class="glyphicon glyphicon-refresh shadow" aria-hidden="true"></span>
                         </kval>
                         <kval ng-click="redis.editValueIconClick(key)">
@@ -75,6 +79,6 @@
                 </tr>
             </span>
         </table>
-         
+        
     </div>
 </div>
