@@ -88,10 +88,18 @@ def rexpsecs():
 
 @app.route('/rruncommand', methods=['POST'])
 def rruncommand():
-    result = r.execute_command(str(request.json['command']))
-    return jsonify({"return": [x for x in result.decode('utf8').split('\n')],
-                    "status": "success"})
-
+    result = {}
+    result["status"] = "success"
+    cmd = str(request.json['command']).strip().lower()
+    if "/help" in cmd[0:5]:
+        result["return"] = ["Help (/help) has not been implemented."]
+    elif "monitor" in cmd[0:7]:
+        result["return"] = ["The 'monitor' command has been disabled through this API."]
+    else:
+        cmdres = r.execute_command(str(request.json['command']))
+        result["return"] = [x for x in cmdres.decode('utf8').split('\n')]
+    print(result)
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.debug = True

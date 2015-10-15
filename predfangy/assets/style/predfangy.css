@@ -167,8 +167,16 @@ a.buttonbuffer {
   vertical-align: center;
   text-align: center;
 }
+.wordwrap { 
+   white-space: pre-wrap;      /* CSS3 */   
+   white-space: -moz-pre-wrap; /* Firefox */    
+   white-space: -pre-wrap;     /* Opera <7 */   
+   white-space: -o-pre-wrap;   /* Opera 7 */    
+   word-wrap: break-word;      /* IE */
+}
 
 #console {
+  text-overflow: 
 padding: 2px;
   outline: none;
   border: none;

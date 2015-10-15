@@ -4,7 +4,7 @@
         <div ng-repeat="hist in history | reverse">
             You:> {{ hist.command }}
             <br>
-            Server:> <div ng-repeat="line in hist.return">&emsp;{{ line }}</div>
+            Server:> <div class="wordwrap" ng-repeat="line in hist.return">&emsp;{{ line }}</div>
         </div>
     </div>
     <div>

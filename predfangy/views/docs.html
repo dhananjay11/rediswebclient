@@ -1,9 +1,45 @@
 <h2 class="text-center text-shadow">Documentation</h2>
 <div ng-controller="DocsCtrl as docs">
     <p>
+<h1>PRedisFAngular Demo</h1> <h3>(*Unguarded* Redis instance hosted on Heroku)</h3>
+
+<p>(the demo is hosted on a heroku free dyno, so don't expect it to load quickly!)</p>
+
+<p>This project has two main pieces:  a JSON API, written in Python/Flask, and an AngularJS application.  </p>
+
+<h3>Step 1: Initial Setup</h3>
+
+<p>FIrst, if you have not already, install Python3, python-virtualenv, Node.js, and npm.  Then, from the top level directory, run the following commands:</p>
+
+<p>
+<code>virtualenv -p python3 venv</code><br>
+<code>. venv/bin/activate</code><br>
+<code>pip install -r requirements.txt</code><br>
+<code>cd predfangy</code><br>
+<code>npm install</code><br>
+</code></p>
+
+<h3>Step 2: PRedisFAngular JSON API server (in Python/Flask)</h3>
+
+<p>This is the endpoint which is pointed to in the configuration tab of the client application.  In this file, the Redis server connection is configured to point to your redis server.
+Start the server with </p>
+
+<p><code>python predfangy.py</code></p>
+
+<h3>Step 3: PRedisFAngular Client (in AngularJS)</h3>
+
+<p>In this repo, the AngularJS application (in the /predfangy directory) can be started in Node.js by running </p>
+
+<p><code>node predfangy/server.js</code></p>
+
+<p>Note: this can be hosted on the web server of your choice.</p>
+
+    <p>
         Redis Commands can be found at: <a href="http://redis.io/commands">http://redis.io/commands</a>
     </p>
     <p>
         <a class="btn btn-warning buttonbuffer" ng-click="docs.addJunkData()">Add Junk Data</a>
+    </p>
+
     </p>
 </div>

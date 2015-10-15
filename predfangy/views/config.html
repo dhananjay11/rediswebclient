@@ -9,10 +9,10 @@
             </p>
             <div ng-controller="RedisCtrl as redis"
                 <p>
-                    <label><input class="floaty-input" ng-model="autoLoadKeys" type="checkbox" value="true"> Load Values Automatically </label><br>
+                    <label><input class="floaty-input" ng-model="autoLoadValues" type="checkbox" value="true" default="true"> Load Values Automatically </label><br>
                 </p>
                 <p>
-                    <label><input class="floaty-input" ng-model="confModel.refreshToggle" ng-change="redis.toggleAutoRefresh(confModel.refreshToggle)" type="checkbox" value="true"> Enable Automatic Refresh </label><br>
+                    <label><input class="floaty-input" ng-model="confModel.refreshToggle" value="true" default="true" ng-change="redis.toggleAutoRefresh(confModel.refreshToggle)" type="checkbox"> Enable Automatic Refresh </label><br>
                 </p>
             </div>
             <p class="col-sm-4">
@@ -20,6 +20,5 @@
                 <input class="floaty-input " ng-blur="conf.setRefreshRate(formModel.refreshRate)" ng-model="formModel.refreshRate" type="range" name="refreshRate" id="refreshRate" value="3" min="5" max="60">
             </p>
         </div>
-        <!--a href class="btn btn-success pull-right" ng-click="conf.setConfig(formModel)">Save</a-->
     </form>
 </div>

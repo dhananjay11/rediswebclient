@@ -2,8 +2,8 @@
 
     var app = angular.module('predfangy', ['ui.bootstrap']);
     app.redisApi = 'https://predisfangular.herokuapp.com/';
-    app.refreshRate = 10;
-    app.autoRefresh = true;
+    app.refreshRate = 5;
+    app.autoRefresh = false;
 
     function run($rootScope, $location, $http, $scope) {}
 
@@ -108,7 +108,10 @@
         $scope.searchText = "";
         $scope.showSearchResults = false;
         $scope.showExpFormFor = {};
-        $scope.confModel = {};
+        $scope.confModel = {
+            autorefresh: true,
+            refreshToggle: true
+        };
         $scope.autoLoadValues = true;
 
         /*
@@ -124,25 +127,22 @@
             return (begin <= index && index < end);
         };
 
+        /* 
+        end pagination
+        */
+
         this.loadAllValues = function() {
             $scope.keysList.forEach(function(key) {
                 $scope.getKeyVal(key);
+                //console.log(key);
             });
         };
-        /* 
-        end pagination controls 
-        if ($scope.autoLoadKeys && $scope.cachedKeyVals[value] != undefined) {
-                console.log(index, value, begin, end)
-                if (begin <= index && index <= end) {
-                    //$scope.keysList.slice(begin, end).forEach(function() {
-                        $scope.getKeyVal(value);
-                    //});
-                }
-                else{
-                    console.log(index, value)
-                }
-            }
-        */
+        $scope.loadAllValues = function() {
+            $scope.keysList.forEach(function(key) {
+                $scope.getKeyVal(key);
+                console.log(key);
+            });
+        };
 
         $scope.getKeyVal = function(key) {
             if ($scope.cachedKeyVals[key] === undefined) {
@@ -163,20 +163,18 @@
         };
 
         this.toggleAutoRefresh = function(refresh) {
-            if (app.autoRefresh === true) {
-                if (refresh) {
-                    this.monitor = setInterval(this.checkCurrentKeys, (app.refreshRate * 1000));
-                } else {
-                    clearInterval(this.monitor);
-                    app.autoRefresh = false;
-                    this.monitor = {};
-                }
+            console.log("autorefresh set to: " + refresh)
+
+            if (refresh) {
+                app.autorefresh = true;
+                this.monitor = setInterval(this.refreshAllKeys, (app.refreshRate * 1000));
             } else {
-                app.autoRefresh = true;
+                clearInterval(this.monitor);
+                app.autoRefresh = false;
                 this.monitor = {};
-                this.monitor = setInterval(this.checkCurrentKeys, (app.refreshRate * 1000));
             }
         };
+
         this.setExpSecs = function(key, secs) {
             console.log(key + ' ' + secs)
 
@@ -211,7 +209,8 @@
         this.flushAllKeys = function() {
             $http.get(app.redisApi + 'rflush').
             success(function(data, status, headers, config) {
-                $scope.getAllKeys();
+                $scope.keysList = [];
+                $scope.cachedKeyVals = {};
                 console.log("All Redis keys have been flushed!");
             }).
             error(function(data, status, headers, config) {
@@ -260,15 +259,31 @@
             }
         };
 
+        $scope.getAllKeys = function() {
+            $http.get(app.redisApi + 'rlist').
+            success(function(data, status, headers, config) {
+                $scope.keysList = data.keys;
+                $scope.totalItems = data.keys.length;
+                $scope.keysList.forEach(function(k) {
+                    $scope.showKVFormFor[k] = false;
+                });
+                console.log("Keys retrieved successfully!");
+            }).
+            error(function(data, status, headers, config) {
+                console.log("Unable to obtain keys from redis server. Check your connectiostring on the config tab!");
+            });
+        };
+
         this.refreshAllKeys = function() {
             $scope.keysList = [];
             $scope.searchResults = [];
             $scope.getAllKeys();
             if ($scope.autoLoadValues) {
-                this.loadAllValues();
-            }
+                $scope.loadAllValues()
+                };
+                $scope.paginate();
+            };
 
-        };
         this.toggleKVForm = function(key) {
             $scope.showKVFormFor[key] = !$scope.showKVFormFor[key];
             return $scope.showKVFormFor[key];
@@ -295,7 +310,7 @@
                         console.log('FAILURE - KV PAIR NOT SET: ' + key + ' : ' + val)
                     });
         };
-        $scope.getAllKeys = function() {
+        this.getAllKeys = function() {
             $http.get(app.redisApi + 'rlist').
             success(function(data, status, headers, config) {
                 $scope.keysList = data.keys;
@@ -360,19 +375,26 @@
         };
         // build cache every x seconds on server and have it ready to retrieve to speed this up for multiple clients.
         this.checkCurrentKeys = function() {
-            console.log(app.refreshRate);
+            //console.log(app.refreshRate);
             $http.get(app.redisApi + "rlist").
             success(function(data, status, headers, config) {
-                var thisList = data.keys;
-                $scope.keysList = thisList; //intersection($scope.keysList, thisList);
-                $scope.totalItems = data.keys.length;
+                $scope.keysList = data.keys;
+                $scope.totalItems = $scope.keysList.length;
+                $scope.paginate();
+                console.log("autoload values set to: " + $scope.autoLoadValues);
+                if ($scope.autoLoadValues) {
+                    console.log($scope.keysList)
+                    $scope.keysList.forEach(function(key) {
+                        $scope.getKeyVal(key);
+                    });
+                };
             }).
             error(function(data, status, headers, config) {
                 console.log('Could not refresh keys list.');
             });
         };
         //initial grab of keys
-        $scope.getAllKeys();
+        this.getAllKeys();
         //setInterval(this.checkCurrentKeys, (app.refreshRate * 1000));
     });
     // begin connection modal
