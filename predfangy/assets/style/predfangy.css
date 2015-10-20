@@ -4,6 +4,7 @@
 }
 h1, table { 
   text-align: left; 
+  table-layout: fixed;
 }
 
 
@@ -46,8 +47,14 @@ tr, td {
   align-content: left;
   padding-left: 10px;
   vertical-align: center;
-  padding-top: 4px
+  padding-top: 4px;
+  word-wrap: break-word;
 } 
+
+td {
+  wo2rd-wrap: break-word;
+}
+
 tr:first-child {
   background: gray; 
 }
