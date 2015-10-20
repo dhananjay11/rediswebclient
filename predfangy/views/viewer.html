@@ -41,9 +41,9 @@
         <!-- pagination end -->
         <table id="redis-view">
             <tr id="firstrow">
-                <th class="col-sm-4 text-shadow">Key <input class="search floaty-input" ng-model="searchText" placeholder="search keys" ng-change="redis.filterForKeys(searchText)"/></th>
-                <th class="col-sm-4 text-shadow">Value</th>
-                <th class="col-sm-3 text-shadow">Controls</th>
+                <th class="col-sm-4 text-shadow Key">Key <input class="search floaty-input" ng-model="searchText" placeholder="search keys" ng-change="redis.filterForKeys(searchText)"/></th>
+                <th class="col-sm-4 text-shadow Value">Value</th>
+                <th class="col-sm-3 text-shadow Controls">Controls</th>
             </tr>
             <tr ng-repeat="key in keysList | orderBy: key | filter: paginate" ng-show="!showSearchResults || (showSearchResults && searchResults[key])">
                 <td data-th="Key" scroll-trigger="getKeyVal(key)">

@@ -55,6 +55,16 @@ td {
   wo2rd-wrap: break-word;
 }
 
+th.Controls{
+  width: 15%
+}
+th.Key {
+  width: 20%
+}
+th.Value {
+  width: 65%;
+}
+
 tr:first-child {
   background: gray; 
 }
